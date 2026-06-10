@@ -19,6 +19,13 @@ def get_disk_usage():
         "percent": disk.percent
     }
 
+def get_network_usage():
+    net = psutil.net_io_counters()
+    return {
+        "bytes_sent": round(net.bytes_sent / (1024 ** 2), 2),
+        "bytes_recv": round(net.bytes_recv / (1024 ** 2), 2)
+    }
+
 if __name__ == "__main__":
     print(f"CPU Usage: {get_cpu_usage()}%")
     
@@ -27,3 +34,6 @@ if __name__ == "__main__":
     
     disk = get_disk_usage()
     print(f"Disk - Total: {disk['total']}GB | Used: {disk['used']}GB | Percent: {disk['percent']}%")
+    
+    net = get_network_usage()
+    print(f"Network - Bytes Sent: {net['bytes_sent']}MB | Bytes Received: {net['bytes_recv']}MB")
