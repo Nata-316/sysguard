@@ -2,7 +2,7 @@ from monitor import get_cpu_usage, get_memory_usage, get_disk_usage, get_network
 import logging
 
 logging.basicConfig(
-    filename = 'logs/sysguard.log',
+    filename = '/home/natty/sysguard/logs/sysguard.log',
     level = logging.INFO,
     format = '%(asctime)s - %(levelname)s - %(message)s'
 )
