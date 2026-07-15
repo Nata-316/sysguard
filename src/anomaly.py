@@ -3,8 +3,7 @@ import numpy as np
 from sklearn.ensemble import IsolationForest
 from pathlib import Path
 
-LOG_FILE = Path('/home/natty/sysguard/logs/sysguard.log')
-
+LOG_FILE = Path(__file__).parent.parent / 'logs' / 'sysguard.log'
 def load_data():
     data = []
     with open(LOG_FILE, 'r') as f:
@@ -25,7 +24,7 @@ def load_data():
 
 def train_model(data):
     X = np.array(data)
-    model = IsolationForest(contamination=0.1, random_state=42)
+    model = IsolationForest(contamination=0.05, random_state=42)
     model.fit(X)
     return model
 

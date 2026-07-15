@@ -1,10 +1,10 @@
 import json
 import logging
-
-from sklearn import metrics
 from monitor import get_cpu_usage, get_memory_usage, get_disk_usage, get_network_usage
 from alerts import check_alerts
+from pathlib import Path
 
+LOG_FILE = Path(__file__).parent.parent / 'logs' / 'sysguard.log'
 class JSONFormatter(logging.Formatter):
     def format(self, record):
         message = record.getMessage()
@@ -23,7 +23,7 @@ class JSONFormatter(logging.Formatter):
 logger = logging.getLogger("sysguard")
 logger.setLevel(logging.INFO)
 
-handler = logging.FileHandler('/home/natty/sysguard/logs/sysguard.log')
+handler = logging.FileHandler(str(LOG_FILE))
 handler.setFormatter(JSONFormatter())
 logger.addHandler(handler)
 
@@ -43,7 +43,6 @@ def log_metrics():
 
     logger.info(json.dumps(metrics))
     check_alerts()
-    print(f"Debug metrics: {metrics}")
     return metrics
 
 if __name__ == "__main__":
